@@ -1,0 +1,1 @@
+This servers purpose is to act as a web service endpoint for a custom alexa skill.  It will also act as a TCP server for remote Harmony Hub clients to allow controlling Harmony Hubs from alexa when the hubs are on private networks.
