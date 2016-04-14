@@ -51,6 +51,7 @@ var server= function(opts,cb){
 		if(indexSplit!=-1)
 		{
 			console.log("index split")
+			console.log(self.buffer)
 			var sb=self.buffer.slice(indexSplit);
 			try{
 				var aStr=new Buffer(sb,'base64').toString();
