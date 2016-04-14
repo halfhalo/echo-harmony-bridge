@@ -5,8 +5,9 @@ var _=require("lodash")
 var UUID=require('node-uuid');
 var eventStack={"waiting":[],"completed":[]};
 var winston=require("winston");
+var async=require("async")
 //Use UUID's to match incoming and outgoing commands
-
+console.log(process.env)
 harmony.start=function(opts,cb)
 {
 	harmonyServer= new harmonyserver(opts,cb)
@@ -106,19 +107,10 @@ harmony.startActivity=function(activity,cb,cbNow,eventID)
 				eventStack.completed.push(eventID)
 				cb(err)
 			}
-			
 		}
 		else
 		{
-			var matching = null;
-			_.each(activities,function(act){
-				if(activity.toLowerCase() == act.label.toLowerCase())
-				{
-					console.log("Setting Match for "+activity+": "+(activity == act.label)+" "+(act.label.toLowerCase()))
-					matching=act
-				}
-					
-			})
+			var matching = generateMatch(activity,activities);
 			if(matching)
 			{
 				console.log("Matching activity from list for: "+matching.label)
@@ -301,5 +293,122 @@ harmony.listen=function(uuid,cb,timedOut,eventID)
 		}
 	},timedOut)
 }
-
+/*
+	In addition to checking for a simple match, we also need to check:
+	when dropping watch from hub list
+	adding watch to alexa input
+	dropping TV from hub list
+	dropping t. v. to alexa input
+	And pretty much every combination possible.
+	Also... this is totally not the way to do it if you want any sort of performance... or stability... or it to actually work.
+	Its a POC
+*/
+function generateMatch(activity,activities,cb)
+{
+	var matchingInfo={"name":null,"fragment":null};
+	var inputVariations=[activity];
+	var activityVariations={}
+	var comparisonFunctions={}
+	var mangleFunctions=[dropTV,dropWatch,addTV,addWatch]
+	_.each(mangleFunctions,function(f){
+		var iLength=inputVariations.length;
+		for(var i=0;i<iLength;i++)
+		{
+			var newItem=f(inputVariations[i]).replace("  "," ")
+			if(inputVariations.indexOf(newItem)==-1)
+				inputVariations.push(newItem)
+		}
+	})
+	_.each(activities,function(act){
+		activityVariations[act.label]=[act.label.toLowerCase()];
+		comparisonFunctions[act.label]=[]
+		_.each(mangleFunctions,function(f){
+			var iLength=activityVariations[act.label].length;
+			for(var i=0;i<iLength;i++)
+			{
+				var newItem=f(activityVariations[act.label][i]).replace("  "," ")
+				if(activityVariations[act.label].indexOf(newItem)==-1)
+					activityVariations[act.label].push(newItem)
+			}
+		})
+	})
+	_.each(activityVariations,function(actVar,actLabel){
+		if(actVar.length>0)
+		{
+			var actVarBest={"name":"","match":""};
+			_.each(inputVariations,function(input){
+				if(input.length>0)
+				{
+					_.each(actVar,function(av){
+						if(av.length>0)
+						{
+							if(av==input)
+							{
+								if(!actVarBest)
+								{
+									actVarBest["name"]=actLabel
+									actVarBest["match"]=input
+								}
+								else
+								{
+									if(actVarBest["match"].length<input.length)
+									{
+									actVarBest["name"]=actLabel
+									actVarBest["match"]=input
+									}
+								}
+							}
+						}
+					})
+				}
+				
+			})
+			if(!matchingInfo.fragment || actVarBest["match"].length> matchingInfo.fragment.length)
+			{
+				matchingInfo.fragment=actVarBest["match"]
+				matchingInfo.name=actVarBest["name"]
+			}
+		}
+	})
+	_.each(activities,function(act){
+		if(act.label==matchingInfo["name"])
+			matchingInfo["activity"]=act
+	})
+	return matchingInfo["activity"]
+}
+function compareActivities(input,possibilities,cb)
+{
+	console.log(input)
+	console.log(possibilities)
+}
+function dropTV(str)
+{
+	str=str.toLowerCase()
+	if(str.indexOf("tv")!=-1)
+		str=str.replace("tv","")
+	if(str.indexOf("t. v.")!=-1)
+		str=str.replace("t. v.","")
+	return str.trim();
+}
+function dropWatch(str)
+{
+	str=str.toLowerCase()
+	if(str.indexOf("watch")!=-1)
+		str=str.replace("watch","")
+	return str.trim();
+} 
+function addTV(str)
+{
+	str=str.toLowerCase()
+	if(str.indexOf("watch")==-1)
+		str="watch "+str
+	return str.trim();
+}
+function addWatch(str)
+{
+	str=str.toLowerCase()
+	if(str.indexOf("tv")==-1)
+		str=str+" tv"
+	return str.trim();
+}
 module.exports=harmony

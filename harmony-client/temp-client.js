@@ -12,7 +12,7 @@ harmonyClient.online(function(status){
 	if(status)
 	{
 		console.log("Launching TCP Client")
-		client=net.connect(5000,"alexa.silentbluesystems.com")
+		client=net.connect(5000,process.env["ECHO_HOSTNAME"]||"alexa.silentbluesystems.com")
 		
 		client.on('data', function(data){
 				var remaining="";

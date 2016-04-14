@@ -6,6 +6,7 @@
   "dependencies": {
     "alexa-app": "^2.3.2",
     "alexa-app-server": "^2.2.4",
+    "async": "^1.5.2",
     "dnode": "^1.2.2",
     "json-over-tcp": "^0.3.2",
     "lodash": "^4.11.1",

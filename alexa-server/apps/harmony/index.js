@@ -5,16 +5,16 @@ var _ =require("lodash")
 harmony.start({port:5000},function(err,harmonyClient){
 	app.intent('startactivity',{
 		slots:{"ACTIVITYONE":"LITERAL","ACTIVITYTWO":"LITERAL","ACTIVITYTHREE":"LITERAL","ACTIVITYFOUR":"LITERAL","ACTIVITYFIVE":"LITERAL"},
-		"utterances":["start activity {|watch} {ACTIVITYONE|ACTIVITYONE} {|t. v.}",
-		"start activity {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO}",
-		"start activity {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE}",
-		"start activity {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR}",
-		"start activity {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE}",
-		"start {ACTIVITYONE|ACTIVITYONE}",
-		"start {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO}",
-		"start {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE}",
-		"start {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR}",
-		"start {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE}"]
+		"utterances":["start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {|t. v.}",
+		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {|t. v.}",
+		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {|t. v.}",
+		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {|t. v.}",
+		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} {|t. v.}",
+		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {|t. v.}",
+		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {|t. v.}",
+		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {|t. v.}",
+		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {|t. v.}",
+		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} {|t. v.}"]
 		},function(request,response)
 		{
 			var activity = request.slot("ACTIVITYONE")
@@ -24,6 +24,14 @@ harmony.start({port:5000},function(err,harmonyClient){
 				if(request.slot("ACTIVITYTHREE"))
 				{
 					activity+=" "+request.slot("ACTIVITYTHREE")
+					if(request.slot("ACTIVITYFOUR"))
+					{
+						activity+=" "+request.slot("ACTIVITYFOUR")
+						if(request.slot("ACTIVITYFIVE"))
+						{
+							activity+=" "+request.slot("ACTIVITYFIVE")
+						}
+					}
 				}
 			}
 			console.log("Requested to start "+activity.toLowerCase());
@@ -43,7 +51,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 	
 								actList+=act.label+", "
 							})
-							response.say("No matching activity found.  Valid Acitities are: "+actList)
+							response.say("No matching activity for "+activity.toLowerCase()+" found.  Valid Acitities are: "+actList)
 							response.send()
 						}
 					})
