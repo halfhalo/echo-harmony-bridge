@@ -12,7 +12,7 @@ harmonyClient.online(function(status){
 	if(status)
 	{
 		console.log("Launching TCP Client")
-		client=net.connect(5000)
+		client=net.connect(5000,"alexa.silentbluesystems.com")
 		
 		client.on('data', function(data){
 				var remaining="";
@@ -85,10 +85,12 @@ function runFunctionBuffer(cb)
 }
 function runFuncBuff(harmClient,tcpClient,msg,cb)
 {
+	//console.log(msg)
 	//console.log("runFuncBuff")
 	if(harmClient[msg.msg.method])
 	{
 		harmClient[msg.msg.method](msg.msg,function(resp){
+			console.log("Responding to: "+msg)
 			var obj=msg;
 			msg.resp=resp;
 			console.log(msg)

@@ -5,12 +5,12 @@ var _ =require("lodash")
 harmony.start({port:5000},function(err,harmonyClient){
 	app.intent('startactivity',{
 		slots:{"ACTIVITYONE":"LITERAL","ACTIVITYTWO":"LITERAL","ACTIVITYTHREE":"LITERAL"},
-		"utterances":["start activity {ACTIVITYONE}",
-		"start activity {ACTIVITYONE} {ACTIVITYTWO}",
-		"start activity {ACTIVITYONE} {ACTIVITYTWO} {ACTIVITYTHREE}",
-		"start {ACTIVITYONE}",
-		"start {ACTIVITYONE} {ACTIVITYTWO}",
-		"start {ACTIVITYONE} {ACTIVITYTWO} {ACTIVITYTHREE}"]
+		"utterances":["start activity {ACTIVITYONE|ACTIVITYONE}",
+		"start activity {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO}",
+		"start activity {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE}",
+		"start {ACTIVITYONE|ACTIVITYONE}",
+		"start {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO}",
+		"start {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE}"]
 		},function(request,response)
 		{
 			var activity = request.slot("ACTIVITYONE")
@@ -77,7 +77,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 	)
 	app.intent('pressbutton',{
 		slots:{"BUTTONONE":"LITERAL","BUTTONTWO":"LITERAL"},
-		"utterances":["press button  {BUTTONONE}", "press button {BUTTONONE} {BUTTONTWO}","press {BUTTONONE}", "press {BUTTONONE} {BUTTONTWO}"]
+		"utterances":["press button {BUTTONONE|BUTTONONE}", "press button {BUTTONONE|BUTTONONE} {BUTTONTWO|BUTTONTWO}","press {BUTTONONE|BUTTONONE}", "press {BUTTONONE|BUTTONONE} {BUTTONTWO|BUTTONTWO}"]
 		},function(request,response)
 		{
 			var button = request.slot("BUTTONONE")
