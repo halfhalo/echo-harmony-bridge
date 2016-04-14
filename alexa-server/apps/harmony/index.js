@@ -13,8 +13,8 @@ harmony.start({port:5000},function(err,harmonyClient){
 		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} {|t. v.}"]
 		},function(request,response)
 		{
-			console.log("HI")
-			var activity = request.slot("ACTIVITYONE")
+
+			var activity = request.slot("ACTIVITYONE") || ""
 			if(request.slot("ACTIVITYTWO"))
 			{
 				activity+=" "+request.slot("ACTIVITYTWO")
@@ -35,7 +35,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 			if(activity.length<=2)
 				activity="Watch Demo"
 			
-				var activityLabel=activity();
+				var activityLabel=activity.toLowerCase();
 			console.log("Requested to start "+activity.toLowerCase());
 			harmony.startActivity(activity.toLowerCase(),null,function(err,res){
 				if(err)
