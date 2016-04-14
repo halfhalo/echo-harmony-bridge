@@ -15,6 +15,7 @@ harmonyClient.online(function(status){
 		client=net.connect(5000,process.env["ECHO_HOSTNAME"]||"alexa.silentbluesystems.com")
 		
 		client.on('data', function(data){
+			console.log("Date")
 				var remaining="";
 				buffer+=data.toString();
 				var split=buffer.split("@!@")

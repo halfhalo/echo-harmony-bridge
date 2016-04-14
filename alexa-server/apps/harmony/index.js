@@ -40,6 +40,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 			if(activity.length<=2)
 				activity="Watch Demo"
 			
+				var activityLabel=activity();
 			console.log("Requested to start "+activity.toLowerCase());
 			harmony.startActivity(activity.toLowerCase(),null,function(err,res){
 				if(err)
@@ -64,7 +65,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 				}
 				else
 				{
-					console.log(res)
+					activityLabel=res.label || activityLabel
 					response.say("Starting Activity: "+activity.toLowerCase());
 					response.send();
 				}
