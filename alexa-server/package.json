@@ -4,12 +4,12 @@
   "description": "This servers purpose is to act as a web service endpoint for a custom alexa skill.  It will also act as a TCP server for remote Harmony Hub clients to allow controlling Harmony Hubs from alexa when the hubs are on private networks.",
   "main": "index.js",
   "dependencies": {
-    "alexa-app-server": "^2.2.4",
-    "json-over-tcp": "^0.3.2",
-    "dnode": "^1.2.2",
     "alexa-app": "^2.3.2",
+    "alexa-app-server": "^2.2.4",
+    "dnode": "^1.2.2",
+    "json-over-tcp": "^0.3.2",
+    "lodash": "^4.11.1",
     "node-uuid": "^1.4.7",
-    "lodash": "^4.11.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {},
