@@ -36,7 +36,7 @@ var server= function(opts,cb){
 			uid=uuid.v4()
 			//console.log({uuid:uid,msg:obj})
 			var str=JSON.stringify({uuid:uid,msg:obj})
-			client.write(new Buffer(str).toString('base64')+"\n")
+			client.write(new Buffer(str).toString('base64')+"@!@")
 		}})
 		if(!uid)
 			return uuid.v4()
@@ -48,7 +48,7 @@ var server= function(opts,cb){
 		winston.info("parseMessage")
 		self.buffer+=data.toString();
 		var remaining=""
-		var splitBuffer=self.buffer.split("\n")
+		var splitBuffer=self.buffer.split("@!@")
 		_.each(splitBuffer,function(sb){
 			try{
 				var aStr=new Buffer(sb,'base64').toString();

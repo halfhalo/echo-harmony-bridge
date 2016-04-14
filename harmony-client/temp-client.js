@@ -17,7 +17,7 @@ harmonyClient.online(function(status){
 		client.on('data', function(data){
 				var remaining="";
 				buffer+=data.toString();
-				var split=buffer.split("\n")
+				var split=buffer.split("@!@")
 				//console.log(split)
 				_.each(split,function(entry){
 					try{
@@ -94,7 +94,7 @@ function runFuncBuff(harmClient,tcpClient,msg,cb)
 			var obj=msg;
 			msg.resp=resp;
 			console.log(msg)
-			client.write(new Buffer(JSON.stringify(msg)).toString('base64')+"\n")
+			client.write(new Buffer(JSON.stringify(msg)).toString('base64')+"@!@")
 			cb(true)
 		})
 	}
