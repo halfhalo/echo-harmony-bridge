@@ -25,7 +25,7 @@ var server= function(opts,cb){
 			self.clients.splice(self.clients.indexOf(socket),1)
 			winston.info("Client Disconnected")
 		})
-	}).listen({port:opts.port||5000},function(){
+	}).listen({port:opts.port||5000,host:opts.hostname||"alexa.silentbluesystems.com"},function(){
 		winston.info("Server listening...")
 		cb(null,self)
 	})

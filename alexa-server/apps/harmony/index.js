@@ -4,11 +4,24 @@ var harmony=require("./lib/harmony");
 var _ =require("lodash")
 harmony.start({port:5000},function(err,harmonyClient){
 	app.intent('startactivity',{
-		slots:{"activity":"LITERAL"},
-		"utterances":["start activity {activity|activity}"]
+		slots:{"ACTIVITYONE":"LITERAL","ACTIVITYTWO":"LITERAL","ACTIVITYTHREE":"LITERAL"},
+		"utterances":["start activity {ACTIVITYONE}",
+		"start activity {ACTIVITYONE} {ACTIVITYTWO}",
+		"start activity {ACTIVITYONE} {ACTIVITYTWO} {ACTIVITYTHREE}",
+		"start {ACTIVITYONE}",
+		"start {ACTIVITYONE} {ACTIVITYTWO}",
+		"start {ACTIVITYONE} {ACTIVITYTWO} {ACTIVITYTHREE}"]
 		},function(request,response)
 		{
-			var activity = request.slot("activity")
+			var activity = request.slot("ACTIVITYONE")
+			if(request.slot("ACTIVITYTWO"))
+			{
+				activity+=" "+request.slot("ACTIVITYTWO")
+				if(request.slot("ACTIVITYTHREE"))
+				{
+					activity+=" "+request.slot("ACTIVITYTHREE")
+				}
+			}
 			console.log("Requested to start "+activity.toLowerCase());
 			harmony.startActivity(activity.toLowerCase(),null,function(err,res){
 				if(err)
@@ -63,11 +76,15 @@ harmony.start({port:5000},function(err,harmonyClient){
 		}
 	)
 	app.intent('pressbutton',{
-		slots:{"button":"LITERAL"},
-		"utterances":["press button  {button|button}"]
+		slots:{"BUTTONONE":"LITERAL","BUTTONTWO":"LITERAL"},
+		"utterances":["press button  {BUTTONONE}", "press button {BUTTONONE} {BUTTONTWO}","press {BUTTONONE}", "press {BUTTONONE} {BUTTONTWO}"]
 		},function(request,response)
 		{
-			var button = request.slot("button")
+			var button = request.slot("BUTTONONE")
+			if(request.slot("BUTTONTWO"))
+			{
+				button+=" "+request.slot("BUTTONTWO")
+			}
 			console.log("Requested to press "+button.toLowerCase());
 			harmony.sendCommand(button.toLowerCase(),function(err,res){
 				console.log("sendcommand Exit!")
