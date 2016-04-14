@@ -56,12 +56,13 @@ var server= function(opts,cb){
 				//console.log(parsedData)
 				self.emit(parsedData.uuid,parsedData.resp);
 			}catch(e){
-
+				console.log(e)
+				console.log(sb)
 			}
 			//self.emit(parsedData.uuid,parsedData.resp);
 		})
 		if(self.errorCount<3)
-		self.buffer=remaining
+			self.buffer=remaining
 
 
 	
