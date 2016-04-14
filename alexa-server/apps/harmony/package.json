@@ -11,5 +11,14 @@
     "url": "github.com/halfhalo/echo-harmony-bridge"
   },
   "author": "patrick roberts",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "alexa-app": "^2.3.2",
+    "alexa-app-server": "^2.2.4",
+    "dnode": "^1.2.2",
+    "json-over-tcp": "^0.3.2",
+    "lodash": "^4.11.0",
+    "node-uuid": "^1.4.7",
+    "winston": "^2.2.0"
+  }
 }
