@@ -52,7 +52,7 @@ var server= function(opts,cb){
 		{
 			console.log("index split")
 			console.log(self.buffer)
-			var sb=self.buffer.slice(indexSplit);
+			var sb=self.buffer.slice(0,indexSplit);
 			try{
 				var aStr=new Buffer(sb,'base64').toString();
 				var parsedData=JSON.parse(aStr)
