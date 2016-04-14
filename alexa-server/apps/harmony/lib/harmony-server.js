@@ -50,12 +50,13 @@ var server= function(opts,cb){
 		var indexSplit=self.buffer.indexOf("@!@")
 		if(indexSplit!=-1)
 		{
+			console.log("index split")
 			var sb=self.buffer.slice(indexSplit);
 			try{
 				var aStr=new Buffer(sb,'base64').toString();
 				var parsedData=JSON.parse(aStr)
-				//console.log(parsedData)
-				self.buffer=self.buffer.substr(indexSplit)
+				console.log(parsedData)
+				self.buffer=self.buffer.substr(indexSplit+3)
 				self.emit(parsedData.uuid,parsedData.resp);
 			}catch(e){
 				console.log(e)
