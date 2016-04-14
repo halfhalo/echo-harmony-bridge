@@ -47,25 +47,26 @@ var server= function(opts,cb){
 		var self=this
 		winston.info("parseMessage")
 		self.buffer+=data.toString();
-		var remaining=""
-		var splitBuffer=self.buffer.split("@!@")
-		_.each(splitBuffer,function(sb){
+		var indexSplit=self.buffer.indexOf("@!@")
+		if(indexSplit!=-1)
+		{
+			var sb=self.buffer.slice(indexSplit);
 			try{
 				var aStr=new Buffer(sb,'base64').toString();
 				var parsedData=JSON.parse(aStr)
 				//console.log(parsedData)
+				self.buffer=self.buffer.substr(indexSplit)
 				self.emit(parsedData.uuid,parsedData.resp);
 			}catch(e){
 				console.log(e)
 				console.log(sb)
 			}
-			//self.emit(parsedData.uuid,parsedData.resp);
-		})
-		if(self.errorCount<3)
-			self.buffer=remaining
+		}
+		else
+		{
+			console.log("Adding to buffer")
+		}
 
-
-	
 
 	}
 }
