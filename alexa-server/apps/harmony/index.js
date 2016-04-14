@@ -13,6 +13,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} {|t. v.}"]
 		},function(request,response)
 		{
+			console.log("HI")
 			var activity = request.slot("ACTIVITYONE")
 			if(request.slot("ACTIVITYTWO"))
 			{
