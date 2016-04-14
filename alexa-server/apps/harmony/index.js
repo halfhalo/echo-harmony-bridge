@@ -5,11 +5,13 @@ var _ =require("lodash")
 harmony.start({port:5000},function(err,harmonyClient){
 	app.intent('startactivity',{
 		slots:{"ACTIVITYONE":"LITERAL","ACTIVITYTWO":"LITERAL","ACTIVITYTHREE":"LITERAL","ACTIVITYFOUR":"LITERAL","ACTIVITYFIVE":"LITERAL"},
-		"utterances":["start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {|t. v.}",
+		"utterances":["start activity {|watch|play} {|t. v.}",
+		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {|t. v.}",
 		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {|t. v.}",
 		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {|t. v.}",
 		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {|t. v.}",
 		"start activity {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} {|t. v.}",
+		"start {|watch|play} {|t. v.}",
 		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {|t. v.}",
 		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {|t. v.}",
 		"start {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {|t. v.}",
@@ -34,6 +36,10 @@ harmony.start({port:5000},function(err,harmonyClient){
 					}
 				}
 			}
+			activity=activity.replace("activityone","")
+			if(activity.length<=2)
+				activity="Watch Demo"
+			
 			console.log("Requested to start "+activity.toLowerCase());
 			harmony.startActivity(activity.toLowerCase(),null,function(err,res){
 				if(err)
