@@ -87,10 +87,17 @@ harmony.activeCommands=function(cb)
 						if(act.type=="VirtualTelevisionN")
 						{
 							_.each(act.controlGroup,function(controlGroup){
-								_.each(controlGroup.function,function(action){
+								if(controlGroup.name=="Volume")
+								{
+									_.each(controlGroup.function,function(action){
 
-									actions.push(action)
-								})
+										actions.push(action)
+									})	
+								}
+								else
+								{
+									console.log(controlGroup)
+								}
 							})
 						}
 					})
