@@ -287,7 +287,8 @@ harmony.blue=function(cb)
 		}	
 		else
 		{
-			var matching=null
+			var matching=null;
+			var action = null;
 			_.each(activities, function(act){
 				if(act.label.toLowerCase()=="watch demo")
 				{
@@ -297,7 +298,7 @@ harmony.blue=function(cb)
 			})
 		}
 	})
-	var uuid=harmonyServer.sendMessage({"method":"sendCommand","obj":)
+	var uuid=harmonyServer.sendMessage({"method":"sendCommand","obj":action)
 	harmony.listen(uuid,function(data){
 		console.log("Finished!  Calling CB")
 			cb(null,data)
