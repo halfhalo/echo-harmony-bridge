@@ -279,6 +279,16 @@ harmony.sendCommand=function(cmd,cb)
 
 	})
 }
+harmony.blue=function(cb)
+{
+	var uuid=harmonyServer.sendMessage({"method":"sendCommand","obj":{ action: '{"command":"Blue","type":"IRCommand","deviceId":"32267209"}',
+    name: 'Blue',
+    label: 'Blue' }})
+	harmony.listen(uuid,function(data){
+		console.log("Finished!  Calling CB")
+			cb(null,data)
+	})
+}
 harmony.parseCmd=function(cmd)
 {
 	return cmd
