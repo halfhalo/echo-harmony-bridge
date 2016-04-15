@@ -7,12 +7,15 @@ discover.on('online', function(hub) {
     console.log('discovered ' + hub.ip)
 	harmony(hub.ip)
 		.then(function(harmonyClient){
-			console.log(harmonyClient)
+			//console.log(harmonyClient)
 			harmonyClient.getActivities().then(function(activities){
-				console.log(activities)
+				_.each(activities,function(act){
+					console.log(act.controlGroup)
+					console.log("####")
+				})
 			})
 			harmonyClient.getAvailableCommands().then(function(commands){
-				console.log(commands)
+				//console.log(commands)
 			})
 		})
 })
@@ -29,7 +32,7 @@ discover.on('update', function(hubs) {
             return prev + (prev.length > 0 ? ', ' : '') + hub.ip
         }, '')
 
-    console.log('known ips: ' + knownHubIps)
+    //console.log('known ips: ' + knownHubIps)
 })
 
 // Look for hubs:
