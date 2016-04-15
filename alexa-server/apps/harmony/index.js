@@ -112,7 +112,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 				{
 					console.log(commands)
 					var cmdList="";
-					_.each(command,function(cmd){
+					_.each(commands,function(cmd){
 
 						cmdList+=cmd.label+", "
 					})

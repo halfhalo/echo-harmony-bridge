@@ -66,17 +66,33 @@ harmony.activeCommands=function(cb)
 				_.each(activities,function(act){
 					if(act.id==data)
 						currAct=act
-						if(act.id==-1)
-							console.log(act)
 				})
 				var actions=[]
+				var volFound=false
 				_.each(currAct.controlGroup,function(controlGroup){
-					console.log(controlGroup)
+					if(controlGroup.name=="Volume")
+					{
+						volFound=true
+					}
 					_.each(controlGroup.function,function(action){
+
 						actions.push(action)
 					})
 				})
+				if(volFound)
 				cb(null,actions)
+				else
+				{
+					_.each(activities,function(act){
+						if(act.type=="VirtualTelevisionN")
+						{
+							_.each(act.controlGroup,function(controlGroup){
+								actions.push(action)
+							})
+						}
+					})
+					cb(null,actions)
+				}
 			})
 			
 		}
