@@ -78,6 +78,18 @@ harmony.start({port:5000},function(err,harmonyClient){
 		"utterances":["who {|is} {|that|dat} {|der}","who is on {|the|that} {|there} {|on} tv", "who is on {|the|that} t. v."]
 		},function(request,response)
 		{
+			harmony.blue(function(err,res){
+				if(err)
+				{
+					response.say("Error asking whodat");
+					response.send();
+				}
+				else
+				{
+					response.say("Asking TV whodat");
+					response.send();
+				}
+			})
 			return false;
 		}
 	)
@@ -92,6 +104,26 @@ harmony.start({port:5000},function(err,harmonyClient){
 		"utterances":["list activities","get activities"]
 		},function(request,response)
 		{
+			harmony.activityList(function(err,activities){
+				if(err)
+				{
+					console.log(err)
+					response.say("No Active Activities Available")
+					response.send()
+					
+				}
+				else
+				{
+					console.log(activities)
+					var actList="";
+					_.each(activities,function(act){
+
+						actList+=act.label+", "
+					})
+					response.say("The following Activities are available: "+actList)
+					response.send();
+				}
+			})
 			return false;
 		}
 	)
