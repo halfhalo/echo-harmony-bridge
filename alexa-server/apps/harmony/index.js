@@ -75,7 +75,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 		}
 	)
 	app.intent('whodat',{
-		"utterances":["who {|is} {|that|dat}","who is on tv", "who is on t. v."]
+		"utterances":["who {|is} {|that|dat} {|der}","who is on {|the|that} {|there} {|on} tv", "who is on {|the|that} t. v."]
 		},function(request,response)
 		{
 			return false;
@@ -283,6 +283,32 @@ harmony.start({port:5000},function(err,harmonyClient){
 		},function(request,response)
 		{
 			var button = "direction left"
+			console.log("Requested to press "+button.toLowerCase());
+			harmony.sendCommand(button.toLowerCase(),function(err,res){
+				console.log("sendcommand Exit!")
+				if(err)
+				{
+					console.log("Error:")
+					console.log(err)
+					response.say("An Error has Occured: "+err.toString())
+					response.send()
+				}
+				else
+				{
+					console.log("Response:")
+					console.log(res)
+					response.say("Pressing Button: "+button.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
+	app.intent('pressbuttonplay',{
+		"utterances":["press {|button} {|direction} {play|pause}",]
+		},function(request,response)
+		{
+			var button = "play"
 			console.log("Requested to press "+button.toLowerCase());
 			harmony.sendCommand(button.toLowerCase(),function(err,res){
 				console.log("sendcommand Exit!")
