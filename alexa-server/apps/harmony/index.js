@@ -98,6 +98,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 			
 			var activity = request.slot("ACTIVITYONE") || ""
 			console.log("ACT1: "+activity)
+			console.log("ALL ACT:"+request.slot("ACTIVITYONE")+request.slot("ACTIVITYTWO")+request.slot("ACTIVITYTHREE")+request.slot("ACTIVITYFOUR")+request.slot("ACTIVITYFIVE"))
 			if(request.slot("ACTIVITYTWO"))
 			{
 				activity+=" "+request.slot("ACTIVITYTWO")
