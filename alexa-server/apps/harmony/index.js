@@ -3,9 +3,91 @@ var app = new alexa.app('harmonyhub')
 var harmony=require("./lib/harmony");
 var _ =require("lodash")
 harmony.start({port:5000},function(err,harmonyClient){
+	app.intent('tvdemo',{
+		"utterances":[
+		"Television Demo"]
+		},function(request,response)
+		{
+			
+			var activity="Watch TV"
+			
+			var activityLabel=activity.toLowerCase();
+			console.log("Requested to start "+activity.toLowerCase());
+			harmony.startActivity(activity.toLowerCase(),null,function(err,res){
+				if(err)
+				{
+					console.log(err)
+					harmony.activityList(function(err,activities){
+						if(err)
+						{
+							response.say("An Error has Occured")
+						}
+						else
+						{
+							var actList="";
+							_.each(activities,function(act){
+	
+								actList+=act.label+", "
+							})
+							response.say("No matching activity for "+activity.toLowerCase()+" found.  Valid Activities are: "+actList)
+							response.send()
+						}
+					})
+				}
+				else
+				{
+					activityLabel=res.label || activityLabel
+					response.say("Starting Activity: "+activity.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
+	app.intent('firedemo',{
+		"utterances":[
+		"fire demo"]
+		},function(request,response)
+		{
+			
+			var activity="Fire Demo"
+			
+			var activityLabel=activity.toLowerCase();
+			console.log("Requested to start "+activity.toLowerCase());
+			harmony.startActivity(activity.toLowerCase(),null,function(err,res){
+				if(err)
+				{
+					console.log(err)
+					harmony.activityList(function(err,activities){
+						if(err)
+						{
+							response.say("An Error has Occured")
+						}
+						else
+						{
+							var actList="";
+							_.each(activities,function(act){
+	
+								actList+=act.label+", "
+							})
+							response.say("No matching activity for "+activity.toLowerCase()+" found.  Valid Activities are: "+actList)
+							response.send()
+						}
+					})
+				}
+				else
+				{
+					activityLabel=res.label || activityLabel
+					response.say("Starting Activity: "+activity.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
 	app.intent('startactivity',{
 		slots:{"ACTIVITYONE":"LITERAL","ACTIVITYTWO":"LITERAL","ACTIVITYTHREE":"LITERAL","ACTIVITYFOUR":"LITERAL","ACTIVITYFIVE":"LITERAL"},
-		"utterances":["start {|activity} watch t. v.",
+		"utterances":[
 		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} ",
 		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} ",
 		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} ",
