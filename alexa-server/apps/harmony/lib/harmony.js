@@ -66,6 +66,8 @@ harmony.activeCommands=function(cb)
 				_.each(activities,function(act){
 					if(act.id==data)
 						currAct=act
+						if(act.id==-1)
+							console.log(act)
 				})
 				var actions=[]
 				_.each(currAct.controlGroup,function(controlGroup){
