@@ -74,6 +74,13 @@ harmony.start({port:5000},function(err,harmonyClient){
 			return false;
 		}
 	)
+	app.intent('whodat',{
+		"utterances":["who {|is} {|that|dat}","who is on tv", "who is on t. v."]
+		},function(request,response)
+		{
+			return false;
+		}
+	)
 	app.intent('currentactivity',{
 		"utterances":["get activity","what is the current activity","what is active","what is it doing"]
 		},function(request,response)
@@ -92,6 +99,18 @@ harmony.start({port:5000},function(err,harmonyClient){
 		"utterances":["list buttons","get buttons"]
 		},function(request,response)
 		{
+			
+			harmony.activeCommands(function(err,commands){
+				if(err)
+				{
+					console.log(err)
+					
+				}
+				else
+				{
+					console.log(commands)
+				}
+			})
 			return false;
 		}
 	)
