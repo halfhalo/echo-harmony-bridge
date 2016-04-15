@@ -298,7 +298,7 @@ harmony.blue=function(cb)
 			})
 		}
 	})
-	var uuid=harmonyServer.sendMessage({"method":"sendCommand","obj":action)
+	var uuid=harmonyServer.sendMessage({"method":"sendCommand","obj":action})
 	harmony.listen(uuid,function(data){
 		console.log("Finished!  Calling CB")
 			cb(null,data)
