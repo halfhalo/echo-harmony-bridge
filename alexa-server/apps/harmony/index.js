@@ -5,12 +5,12 @@ var _ =require("lodash")
 harmony.start({port:5000},function(err,harmonyClient){
 	app.intent('startactivity',{
 		slots:{"ACTIVITYONE":"LITERAL","ACTIVITYTWO":"LITERAL","ACTIVITYTHREE":"LITERAL","ACTIVITYFOUR":"LITERAL","ACTIVITYFIVE":"LITERAL"},
-		"utterances":["start {|activity} {|watch|play} {|t. v.}",
-		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {|t. v.}",
-		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {|t. v.}",
-		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {|t. v.}",
-		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {|t. v.}",
-		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} {|t. v.}"]
+		"utterances":["start {|activity} watch t. v.",
+		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} ",
+		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} ",
+		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} ",
+		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} ",
+		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} "]
 		},function(request,response)
 		{
 			
