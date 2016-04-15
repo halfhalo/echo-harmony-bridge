@@ -15,7 +15,7 @@ harmonyClient.online(function(status){
 		client=net.connect(5000,process.env["ECHO_HOSTNAME"]||"alexa.silentbluesystems.com")
 		
 		client.on('data', function(data){
-			console.log("Date")
+			console.log("Data")
 				var remaining="";
 				buffer+=data.toString();
 				var split=buffer.split("@!@")
@@ -24,6 +24,7 @@ harmonyClient.online(function(status){
 					try{
 						aStr=new Buffer(entry,'base64').toString('ascii');
 						var inc=JSON.parse(aStr)
+						console.log(inc)
 						functionBuffer.push([harmonyClient,client,inc])
 						/*
 						if(harmonyClient[inc.msg.method])

@@ -7,7 +7,7 @@ var eventStack={"waiting":[],"completed":[]};
 var winston=require("winston");
 var async=require("async")
 //Use UUID's to match incoming and outgoing commands
-console.log(process.env)
+//console.log(process.env)
 harmony.start=function(opts,cb)
 {
 	harmonyServer= new harmonyserver(opts,cb)

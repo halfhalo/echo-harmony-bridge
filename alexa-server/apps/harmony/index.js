@@ -13,27 +13,33 @@ harmony.start({port:5000},function(err,harmonyClient){
 		"start {|activity} {|watch|play} {ACTIVITYONE|ACTIVITYONE} {ACTIVITYTWO|ACTIVITYTWO} {ACTIVITYTHREE|ACTIVITYTHREE} {ACTIVITYFOUR|ACTIVITYFOUR} {ACTIVITYFIVE|ACTIVITYFIVE} {|t. v.}"]
 		},function(request,response)
 		{
-
+			
 			var activity = request.slot("ACTIVITYONE") || ""
+			console.log("ACT1: "+activity)
 			if(request.slot("ACTIVITYTWO"))
 			{
 				activity+=" "+request.slot("ACTIVITYTWO")
+				console.log("ACT2: "+activity)
 				if(request.slot("ACTIVITYTHREE"))
 				{
+					
 					activity+=" "+request.slot("ACTIVITYTHREE")
+					console.log("ACT3: "+activity)
 					if(request.slot("ACTIVITYFOUR"))
 					{
 						activity+=" "+request.slot("ACTIVITYFOUR")
+						console.log("ACT4: "+activity)
 						if(request.slot("ACTIVITYFIVE"))
 						{
 							activity+=" "+request.slot("ACTIVITYFIVE")
+							console.log("ACT5: "+activity)
 						}
 					}
 				}
 			}
 			activity=activity.replace("activityone","")
 			if(activity.length<=2)
-				activity="Watch Demo"
+				activity="Watch TV"
 			
 				var activityLabel=activity.toLowerCase();
 			console.log("Requested to start "+activity.toLowerCase());
@@ -53,7 +59,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 	
 								actList+=act.label+", "
 							})
-							response.say("No matching activity for "+activity.toLowerCase()+" found.  Valid Acitities are: "+actList)
+							response.say("No matching activity for "+activity.toLowerCase()+" found.  Valid Activities are: "+actList)
 							response.send()
 						}
 					})
@@ -123,6 +129,162 @@ harmony.start({port:5000},function(err,harmonyClient){
 			return false;
 		}
 	)
+	app.intent('pressbuttonvolup',{
+		"utterances":["press {|button} {|volume} up","volume up"]
+		},function(request,response)
+		{
+			var button = "volume up"
+			console.log("Requested to press "+button.toLowerCase());
+			harmony.sendCommand(button.toLowerCase(),function(err,res){
+				console.log("sendcommand Exit!")
+				if(err)
+				{
+					console.log("Error:")
+					console.log(err)
+					response.say("An Error has Occured: "+err.toString())
+					response.send()
+				}
+				else
+				{
+					console.log("Response:")
+					console.log(res)
+					response.say("Pressing Button: "+button.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
+	app.intent('pressbuttonvoldown',{
+		"utterances":["press {|button} {|volume} down",]
+		},function(request,response)
+		{
+			var button = "volume down"
+			console.log("Requested to press "+button.toLowerCase());
+			harmony.sendCommand(button.toLowerCase(),function(err,res){
+				console.log("sendcommand Exit!")
+				if(err)
+				{
+					console.log("Error:")
+					console.log(err)
+					response.say("An Error has Occured: "+err.toString())
+					response.send()
+				}
+				else
+				{
+					console.log("Response:")
+					console.log(res)
+					response.say("Pressing Button: "+button.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
+	app.intent('pressbuttondown',{
+		"utterances":["press {|button} {|direction} down",]
+		},function(request,response)
+		{
+			var button = "direction down"
+			console.log("Requested to press "+button.toLowerCase());
+			harmony.sendCommand(button.toLowerCase(),function(err,res){
+				console.log("sendcommand Exit!")
+				if(err)
+				{
+					console.log("Error:")
+					console.log(err)
+					response.say("An Error has Occured: "+err.toString())
+					response.send()
+				}
+				else
+				{
+					console.log("Response:")
+					console.log(res)
+					response.say("Pressing Button: "+button.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
+	app.intent('pressbuttonup',{
+		"utterances":["press {|button} {|direction} up",]
+		},function(request,response)
+		{
+			var button = "direction up"
+			console.log("Requested to press "+button.toLowerCase());
+			harmony.sendCommand(button.toLowerCase(),function(err,res){
+				console.log("sendcommand Exit!")
+				if(err)
+				{
+					console.log("Error:")
+					console.log(err)
+					response.say("An Error has Occured: "+err.toString())
+					response.send()
+				}
+				else
+				{
+					console.log("Response:")
+					console.log(res)
+					response.say("Pressing Button: "+button.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
+	app.intent('pressbuttonright',{
+		"utterances":["press {|button} {|direction} right",]
+		},function(request,response)
+		{
+			var button = "direction right"
+			console.log("Requested to press "+button.toLowerCase());
+			harmony.sendCommand(button.toLowerCase(),function(err,res){
+				console.log("sendcommand Exit!")
+				if(err)
+				{
+					console.log("Error:")
+					console.log(err)
+					response.say("An Error has Occured: "+err.toString())
+					response.send()
+				}
+				else
+				{
+					console.log("Response:")
+					console.log(res)
+					response.say("Pressing Button: "+button.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
+	app.intent('pressbuttonleft',{
+		"utterances":["press {|button} {|direction} left",]
+		},function(request,response)
+		{
+			var button = "direction left"
+			console.log("Requested to press "+button.toLowerCase());
+			harmony.sendCommand(button.toLowerCase(),function(err,res){
+				console.log("sendcommand Exit!")
+				if(err)
+				{
+					console.log("Error:")
+					console.log(err)
+					response.say("An Error has Occured: "+err.toString())
+					response.send()
+				}
+				else
+				{
+					console.log("Response:")
+					console.log(res)
+					response.say("Pressing Button: "+button.toLowerCase());
+					response.send();
+				}
+			})
+			return false;
+		}
+	)
 	app.intent('stopactivity',{
 		"utterances":["stop activity","turn off"]
 		},function(request,response)
@@ -144,7 +306,7 @@ harmony.start({port:5000},function(err,harmonyClient){
 	
 								actList+=act.label+", "
 							})
-							response.say("No matching activity found.  Valid Acitities are: "+actList)
+							response.say("No matching activity found.  Valid Activities are: "+actList)
 							response.send()
 						}
 					})
