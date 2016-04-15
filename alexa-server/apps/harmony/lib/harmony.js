@@ -69,6 +69,7 @@ harmony.activeCommands=function(cb)
 				})
 				var actions=[]
 				_.each(currAct.controlGroup,function(controlGroup){
+					console.log(controlGroup)
 					_.each(controlGroup.function,function(action){
 						actions.push(action)
 					})

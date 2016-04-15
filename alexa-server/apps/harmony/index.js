@@ -104,11 +104,20 @@ harmony.start({port:5000},function(err,harmonyClient){
 				if(err)
 				{
 					console.log(err)
+					response.say("No Active Commands Available")
+					response.send()
 					
 				}
 				else
 				{
 					console.log(commands)
+					var cmdList="";
+					_.each(command,function(cmd){
+
+						cmdList+=cmd.label+", "
+					})
+					response.say("The following buttons are available: "+cmdList)
+					response.send();
 				}
 			})
 			return false;
