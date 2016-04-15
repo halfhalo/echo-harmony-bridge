@@ -281,28 +281,45 @@ harmony.sendCommand=function(cmd,cb)
 }
 harmony.blue=function(cb)
 {
-	harmony.getActivities(function(err,activities){
+	console.log("blue")
+	harmony.activityList(function(err,activities){
 		if(err){
+			console.log(err)
 			cb(err)
 		}	
 		else
 		{
+			console.log("Else")
 			var matching=null;
 			var action = null;
 			_.each(activities, function(act){
 				if(act.label.toLowerCase()=="watch demo")
 				{
-					console.log(act.controlGroup)
+					_.each(act.controlGroup,function(controlGroup){
+						if(controlGroup.name=="ColoredButtons")
+						{
+							console.log("In ControlGroup")
+							_.each(controlGroup.function,function(act){
+								console.log(act)
+								if(act.name=="Blue")
+								{
+									action=act.action
+								}
+							})
+						}
+					})
 				}
 					
 			})
 		}
+
+		var uuid=harmonyServer.sendMessage({"method":"sendCommand","obj":action})
+		harmony.listen(uuid,function(data){
+			console.log("Finished!  Calling CB")
+				cb(null,data)
+		})
 	})
-	var uuid=harmonyServer.sendMessage({"method":"sendCommand","obj":action})
-	harmony.listen(uuid,function(data){
-		console.log("Finished!  Calling CB")
-			cb(null,data)
-	})
+
 }
 harmony.parseCmd=function(cmd)
 {
